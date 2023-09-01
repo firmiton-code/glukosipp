@@ -1,0 +1,12 @@
+[submodule "grove_firmware/lib/Firebase"]
+	path = grove_firmware/lib/Firebase
+	url = https://github.com/mobizt/Firebase-ESP32
+[submodule "grove_firmware/lib/AsyncTCP"]
+	path = grove_firmware/lib/AsyncTCP
+	url = https://github.com/me-no-dev/AsyncTCP
+[submodule "grove_firmware/lib/ESPAsyncWebServer"]
+	path = grove_firmware/lib/ESPAsyncWebServer
+	url = https://github.com/me-no-dev/ESPAsyncWebServer
+[submodule "grove_firmware/lib/NTPClient"]
+	path = grove_firmware/lib/NTPClient
+	url = https://github.com/aliffathoni/NTPClient
