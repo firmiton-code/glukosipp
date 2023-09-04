@@ -10,3 +10,15 @@
 [submodule "grove_firmware/lib/NTPClient"]
 	path = grove_firmware/lib/NTPClient
 	url = https://github.com/aliffathoni/NTPClient
+[submodule "firmware/lib/ESPAsyncWebServer"]
+	path = firmware/lib/ESPAsyncWebServer
+	url = https://github.com/me-no-dev/ESPAsyncWebServer
+[submodule "firmware/lib/AsyncTCP"]
+	path = firmware/lib/AsyncTCP
+	url = https://github.com/me-no-dev/AsyncTCP
+[submodule "firmware/lib/Firebase"]
+	path = firmware/lib/Firebase
+	url = https://github.com/mobizt/Firebase-ESP32.git
+[submodule "firmware/lib/NTPClient"]
+	path = firmware/lib/NTPClient
+	url = https://github.com/arduino-libraries/NTPClient
