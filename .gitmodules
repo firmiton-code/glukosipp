@@ -19,3 +19,6 @@
 [submodule "firmware/lib/Firebase"]
 	path = firmware/lib/Firebase
 	url = https://github.com/mobizt/Firebase-ESP32.git
+[submodule "firmware/lib/NTPClient"]
+	path = firmware/lib/NTPClient
+	url = https://github.com/aliffathoni/NTPClient
