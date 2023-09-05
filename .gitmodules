@@ -22,3 +22,6 @@
 [submodule "firmware/lib/NTPClient"]
 	path = firmware/lib/NTPClient
 	url = https://github.com/aliffathoni/NTPClient
+[submodule "firmware/lib/StepperDriver"]
+	path = firmware/lib/StepperDriver
+	url = https://github.com/laurb9/StepperDriver.git
