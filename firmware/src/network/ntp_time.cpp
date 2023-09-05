@@ -20,9 +20,8 @@ String NTPClass::get_time(){
 
 String NTPClass::get_date(){
   timeClient.update();
-  // String date_format = String(timeClient.getDate());
-  // String date_value = timeClient.getFormattedDate().substring(0,3) +" "+ date_format;
-  String date_value = "123";
+  String date_format = String(timeClient.getDate());
+  String date_value = timeClient.getFormattedDate().substring(0,3) +" "+ date_format;
   return date_value;
 }
 

@@ -25,6 +25,3 @@
 [submodule "firmware/lib/StepperDriver"]
 	path = firmware/lib/StepperDriver
 	url = https://github.com/laurb9/StepperDriver.git
-[submodule "firmware/lib/AccelStepper"]
-	path = firmware/lib/AccelStepper
-	url = https://github.com/waspinator/AccelStepper.git
