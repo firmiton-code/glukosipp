@@ -4,9 +4,9 @@
 #include <Arduino.h>
 #include <WiFi.h>
 #include <string.h>
-#include <FirebaseESP32.h>
 #include <DNSServer.h>
 #include <AsyncTCP.h>
+#include "firebase.h"
 #include "ntp_time.h"
 #include "ESPAsyncWebServer.h"
 #include "credentials.h"

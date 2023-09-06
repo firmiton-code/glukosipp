@@ -1,41 +1,96 @@
 #include <Arduino.h>
 #include "device_config.h"
-#include "network/network.h"
-#include "A4988.h"
 
-// using a 200-step motor (most common)
-#define MOTOR_STEPS 200
-// configure the pins connected
-#define DIR   4
-#define STEP  16
-#define MS1   19
-#define MS2   18
-#define MS3   5
-#define SLP   17
+class FluidState{
+  private:
+    bool motor;
+    uint8_t turn;
+    long last;
+  public:
+    FluidState(){
+      this->motor = false;
+      this->turn = 0;
+      this->last = 0;
+    }
 
-#define INTERFACE 1
-// AccelStepper myStepper(INTERFACE, STEP, DIR);
-A4988 stepper(MOTOR_STEPS, DIR, STEP, SLP, MS1, MS2, MS3);
+    void on(){
+      this->motor = true;
+    }
+
+    void off(){
+      this->motor = false;
+    }
+
+    void next_turn(){
+      this->turn++;
+    }
+
+    void change_last(unsigned long last_inject){
+      this->last = last_inject;
+    }
+
+    bool get_motor_state(){
+      return this->motor;
+    }
+
+    uint8_t get_turn(){
+      return this->turn;
+    }
+
+    long get_last(){
+      return this->last;
+    }
+};
+
+FluidState insulin, other;
+
+void motorTask(void *param){
+  while(1){
+    if(insulin.get_motor_state()){
+      Serial.println("Motor active");
+      motor.run(MOTOR_1, 250);
+      vTaskDelay(1000 / portTICK_PERIOD_MS);
+      motor.run(MOTOR_1, -250);
+      vTaskDelay(1000 / portTICK_PERIOD_MS);
+      fb.set(0, DATA_PATH);
+      insulin.off();
+      insulin.next_turn();
+      Serial.println(insulin.get_turn());
+      insulin.change_last(millis());
+      digitalWrite(23, LOW);
+      Serial.println("Motor off");
+    }
+    vTaskDelay(100/portTICK_PERIOD_MS);
+  }
+}
+
+void stateTask(void *param){
+  while(1){
+    if(fb.get(DATA_PATH) && !insulin.get_motor_state()){
+      insulin.on();
+      digitalWrite(23, HIGH);
+      Serial.println("Status changed");
+    }
+
+    if(!digitalRead(27)){
+      fb.set(1, DATA_PATH);
+      vTaskDelay(200/ portTICK_PERIOD_MS);
+    }
+    vTaskDelay(500 / portTICK_PERIOD_MS);
+  }
+}
 
 void setup() {
   Serial.begin(115200);
   pinMode(23, OUTPUT);
   pinMode(27, INPUT_PULLUP);
   net.begin();
+  fb.begin(DATABASE_URL, DATABASE_SECRET);
   digitalWrite(23, HIGH);
-  stepper.begin(30, 1);
-  stepper.enable();
+  motor.begin();
+
+  xTaskCreate(motorTask, "Motor Task", 10000, NULL, 3, NULL);
+  xTaskCreate(stateTask, "Get State Task", 10000, NULL, 4, NULL);
 }
  
-void loop() {
-  digitalWrite(23, HIGH);
-  delay(200);
-  digitalWrite(23, LOW);
-  delay(200);
-  Serial.println(digitalRead(27));
-
-  stepper.move(250);
-  delay(1000);
-  stepper.move(-250);
-  delay(1000);
-}
+void loop() {}
