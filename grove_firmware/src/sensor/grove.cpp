@@ -7,20 +7,27 @@ GroveClass::GroveClass(){
 }
 
 void GroveClass::begin(){
-  // Wire.begin(_sda_pin, _scl_pin);
-  Wire.begin();
-  Wire.setTimeOut(100);
-  Serial.println(Wire.getTimeOut());
+  Wire.begin(_sda_pin, _scl_pin);
+}
+
+void GroveClass::update(){
+  Wire.requestFrom(0xA0 >> 1, 1);    // request 1 bytes from slave device
+  int data;
+  if(Wire.available()) {          // slave may send less than requested
+    unsigned char c = Wire.read();   // receive heart rate value (a byte)
+    data = c;
+
+    _bpm = data;
+    _glucose = ((_bpm * 0.8518) + 40.708) * glu_calibration;
+  }
 }
 
 int GroveClass::bpm(){
-  Wire.requestFrom(0xA0 >> 1, 1);    // request 1 bytes from slave device
-  unsigned char data;
-  while(Wire.available()) {          // slave may send less than requested
-    data = Wire.read();   // receive heart rate value (a byte)
-    Serial.println(data, DEC);         // print heart rate value        
-  }
-  return data;
+  return _bpm;
+}
+
+int GroveClass::glucose(){
+  return _glucose;
 }
 
 GroveClass grove;

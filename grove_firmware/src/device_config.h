@@ -11,6 +11,9 @@
 #define DEFAULT_MID_PIN     9
 #define DEFAULT_DOWN_PIN    10
 
+#define DATABASE_URL    "gluko-sipp-default-rtdb.firebaseio.com"
+#define DATABASE_SECRET "MTK2PFAXzykyqi6Pkmx6NciXmQdetg95GQ9I8yQ1"
+
 #define FIREBASE_USE_PSRAM
 
 #define DEFAULT_SSID        "3DPractical"

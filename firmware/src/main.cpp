@@ -42,7 +42,7 @@ class FluidState{
     }
 };
 
-FluidState insulin, other;
+FluidState insulin, glukagon;
 
 void motorTask(void *param){
   while(1){

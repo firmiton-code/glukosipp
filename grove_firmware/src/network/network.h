@@ -12,6 +12,7 @@
 #include "credentials.h"
 #include "../device_config.h"
 #include "web_handle.h"
+#include "firebase.h"
 
 #define NET_TAG "Network"
 
