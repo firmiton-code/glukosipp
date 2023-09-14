@@ -9,8 +9,8 @@ class GroveClass{
     uint8_t _sda_pin = 21;
     uint8_t _scl_pin = 22;
 
-    int _bpm;
-    int _glucose;
+    int _bpm = 0;
+    int _glucose = 0;
 
     float glu_calibration = 1.0;
   public:

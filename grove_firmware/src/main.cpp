@@ -5,21 +5,30 @@
 
 int bpm = 0;
 int glu = 0;
+int bat = 0;
+
 
 void sendTask(void *param) {
   int last_bpm = 0;
   int last_glu = 0;
+  int last_bat = 0;
   while(1){
     if(bpm != last_bpm){
       last_bpm = bpm;
       debugVal(MAIN_TAG, "Update bpm : ", bpm);
-      debugVal(MAIN_TAG, "Status : ",fb.set(bpm, "test/bpm"));
+      debugVal(MAIN_TAG, "Status : ",fb.set(bpm, "user-1/device/heart-rate"));
     }
 
-    if(glu != last_glu){
+    if(glu != last_glu && glu > 40){
       last_glu = glu;
       debugVal(MAIN_TAG, "Update glucose : ", glu);
-      debugVal(MAIN_TAG, "Status : ",fb.set(glu, "test/glu"));
+      debugVal(MAIN_TAG, "Status : ",fb.set(glu, "user-1/device/glucose"));
+    }
+
+    if(bat != last_bat){
+      last_bat = bat;
+      debugVal(MAIN_TAG, "Update battery : ", bat);
+      debugVal(MAIN_TAG, "Status : ",fb.set(bat, "user-1/device/battery"));
     }
 
     vTaskDelay(500 / portTICK_PERIOD_MS);
@@ -31,6 +40,7 @@ void scanTask(void *param) {
     grove.update();
     bpm = grove.bpm();
     glu = grove.glucose();
+    bat = battery.get_percentage();
 
     vTaskDelay(5000 / portTICK_PERIOD_MS);
   }
@@ -38,11 +48,14 @@ void scanTask(void *param) {
 
 void setup() {
   Serial.begin(115200);
+
   pinMode(23, OUTPUT);
+
   net.begin();
   fb.begin(DATABASE_URL, DATABASE_SECRET);
   battery.begin();
   grove.begin();
+
   digitalWrite(23, HIGH);
 
   xTaskCreate(scanTask, "Update sensor data", 5000, NULL, 4, NULL);

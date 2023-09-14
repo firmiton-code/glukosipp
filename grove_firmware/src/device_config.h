@@ -7,18 +7,14 @@
 #include "sensor/battery.h"
 #include "sensor/grove.h"
 
-#define DEFAULT_UP_PIN      16
-#define DEFAULT_MID_PIN     9
-#define DEFAULT_DOWN_PIN    10
-
 #define DATABASE_URL    "gluko-sipp-default-rtdb.firebaseio.com"
 #define DATABASE_SECRET "MTK2PFAXzykyqi6Pkmx6NciXmQdetg95GQ9I8yQ1"
 
 #define FIREBASE_USE_PSRAM
 
-#define DEFAULT_SSID        "3DPractical"
-#define DEFAULT_PASS        "embeddedelectronics"
-#define DEFAULT_AP_SSID     "Glukosipp-Sensor"
+#define DEFAULT_SSID        "3DPractical"             // not used since it will be changed
+#define DEFAULT_PASS        "embeddedelectronics"     // not used since it will be changed
+#define DEFAULT_AP_SSID     "Glukosipp-Sensor"        // web-server hotspot name
 
 #define DEFAULT_DEVICE_CODE (uint32_t)ESP.getEfuseMac()
 

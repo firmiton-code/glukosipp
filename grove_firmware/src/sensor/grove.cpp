@@ -18,7 +18,7 @@ void GroveClass::update(){
     data = c;
 
     _bpm = data;
-    _glucose = ((_bpm * 0.8518) + 40.708) * glu_calibration;
+    _glucose = _bpm > 0 ? ((_bpm * 0.8518) + 40.708) * glu_calibration : 0;
   }
 }
 
