@@ -13,12 +13,16 @@ class GroveClass{
     int _glucose = 0;
 
     float glu_calibration = 1.0;
+
+    size_t _req;
   public:
     GroveClass();
     void begin();
     void update();
     int bpm();
     int glucose();
+
+    size_t request();
 };
 
 extern GroveClass grove;
